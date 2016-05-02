@@ -1,9 +1,29 @@
+# Quick Install
+
+### Mac OS & Linux
+
+To run the quick install on nix based systems:
+
+```bash
+curl -o- https://raw.githubusercontent.com/rocksolidwebdesign/vim-config/master/install.sh | bash
+```
+
+### Windows
+
+To run the quick install script on a Windows based system:
+
+```
+bitsadmin.exe /transfer "X" https://raw.githubusercontent.com/rocksolidwebdesign/vim-config/master/install.bat %userprofile%\rsw_install_vim_config.bat && %userprofile%\rsw_install_vim_config.bat && del %userprofile%\rsw_install_vim_config.bat
+```
+
 # Requirements
 
 You must have a recent version of vim installed already.
 
 - Vim 7.4.1811 or greater
 - Git
+
+See below for information on quickly obtaining a recent version of vim.
 
 # Install
 
@@ -16,21 +36,19 @@ Installation consists of
   - Installing the config by renaming the downloaded folder
   - Fetching the plugins via git
 
-### Mac OS & Linux
+You may use one of the Quick Install scripts above or install manually.
 
-```bash
-curl -o- https://raw.githubusercontent.com/rocksolidwebdesign/vim-config/master/install.sh | bash
-```
-
-### Windows
-
-```
-bitsadmin.exe /transfer "X" https://raw.githubusercontent.com/rocksolidwebdesign/vim-config/master/install.bat %userprofile%\rsw_install_vim_config.bat && %userprofile%\rsw_install_vim_config.bat && del %userprofile%\rsw_install_vim_config.bat
-```
-
-### Zip File
+### Manual Installation
 
 You may download the repository as a zip file and unzup to your home or user folder.
+
+You must manually download git modules with, for example:
+
+```
+cd ~/.vim
+git submodule init
+git submodule update
+```
 
 # Getting Recent Vim Versions
 
