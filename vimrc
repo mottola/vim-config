@@ -148,10 +148,9 @@ let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_cpp_compiler = 'g++'
 let g:syntastic_cpp_compiler_options = ' -std=c++11 -stdlib=libc++'
 
-" let g:clang_library_path = '/usr/lib/x86_64-linux-gnu/libclang-3.4.so.1'
-" let g:clang_library_path = '/usr/lib/llvm-3.4/lib/libclang.so.1'
-"let g:clang_library_path = '/usr/lib/llvm-3.4/lib'
-let g:clang_library_path = '/usr/lib/x86_64-linux-gnu/libclang-3.8.so.1'
+if has("unix") && !has("macunix")
+  let g:clang_library_path = '/usr/lib/x86_64-linux-gnu/libclang-3.8.so.1'
+end
 
 " prevent annoying warnings from nerdtree
 let g:NERDShutUp = 1

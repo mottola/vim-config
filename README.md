@@ -46,6 +46,8 @@ You must have a recent version of vim installed already.
 
 - Vim 7.4.1811 or greater
 - Git
+- Clang
+- Python 2.7.10
 
 # Usage
 
