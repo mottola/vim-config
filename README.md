@@ -1,6 +1,6 @@
 # Quick Install
 
-**NOTE:** You need the latest vim version for this config.
+**NOTE:** You need `git` and the latest vim version to use this config.
 
 ### Mac OS & Linux
 
