@@ -213,24 +213,16 @@ vnoremap <LocalLeader>rn :call ToggleRelativeNumberVisual()<CR>
 nnoremap <LocalLeader>w :call ToggleWrap()<CR>
 nnoremap <LocalLeader>m :call ToggleMousePaste()<CR>
 nnoremap <LocalLeader>z :syntax on<CR>
-nnoremap <LocalLeader>yr :YRShow<CR>
-nnoremap <LocalLeader>yc :YRClear<CR>
-nnoremap <LocalLeader>y1 :YRGetElem 1<CR>
-nnoremap <LocalLeader>y2 :YRGetElem 2<CR>
-nnoremap <LocalLeader>y3 :YRGetElem 3<CR>
-nnoremap <LocalLeader>y4 :YRGetElem 4<CR>
-nnoremap <LocalLeader>y5 :YRGetElem 5<CR>
-nnoremap <LocalLeader>y6 :YRGetElem 6<CR>
-nnoremap <LocalLeader>y7 :YRGetElem 7<CR>
-nnoremap <LocalLeader>y8 :YRGetElem 8<CR>
-nnoremap <LocalLeader>y9 :YRGetElem 9<CR>
-nnoremap <LocalLeader>y0 :YRGetElem 10<CR>
 
 " filters
 nnoremap <LocalLeader>q {v}!par -jw
 vnoremap <LocalLeader>q !par -jw
 vnoremap <LocalLeader>a !perl ~/.vim/bin/align.pl -c:=
 nnoremap <LocalLeader>s :call StripWhitespace()<CR>
+
+" python
+"vmap <LocalLeader>pj S]gvS)i''.join<ESC>
+vmap <LocalLeader>pj S]gvS)
 
 " javascript specific stuff
 nnoremap <Leader>jsb :call JsBeautify()<CR>
@@ -263,8 +255,8 @@ vmap <Leader>ryi S}i#<ESC>
 nmap <Leader>ryl ^v$hS"^iputs <ESC>
 vmap <Leader>ryl S"gvS"^iputs <ESC>
 
-nmap <LocalLeader>pdv ysiW(^iecho "<pre>"; var_dump<ESC>$a; exit;<ESC>
-nmap <LocalLeader>pdf ysiW(ysi((iget_class_methods<ESC>^iecho "<pre>"; var_dump<ESC>$a; exit;<ESC>
+"nmap <LocalLeader>pdv ysiW(^iecho "<pre>"; var_dump<ESC>$a; exit;<ESC>
+"nmap <LocalLeader>pdf ysiW(ysi((iget_class_methods<ESC>^iecho "<pre>"; var_dump<ESC>$a; exit;<ESC>
 
 " auto insert curly braces on Control-F
 inoremap <C-F> {<CR>}<C-O>O
