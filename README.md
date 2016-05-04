@@ -63,7 +63,13 @@ You must have a recent version of vim installed already.
 
 Vim 7.4.1689 or greater is recommended.
 
-Vim versions 7.4.1553 and later should probably work. See below for obtaining the up to date vim versions.
+Vim versions 7.4.1553 and later should probably work.
+
+Specifically, vim requires the relatively new plugin management feature called `packages`. You can check that your vim install has this feature with:
+
+```
+:help packages
+```
 
 #### Optional Requirements
 
