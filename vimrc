@@ -138,12 +138,24 @@ elseif has("unix")
 endif
 " }}}
 
+if has("win32")
+  set shell=C:\Windows\System32\cmd.exe
+  set shellcmdflag=/c
+  set shellxquote=(
+  "set shellredir=>%s 2>&1
+endif
+
 " Plugin Settings {{{
 
 "let g:tagbar_ctags_bin = 'jsctags -r'
 
 let g:jsx_ext_required = 1
 
+"let g:syntastic_debug = 1
+
+let g:syntastic_c_checkers = ['clang_check']
+let g:syntastic_clang_check_config_file = '.syntastic_clang_check_config'
+let g:syntastic_scala_checkers = ['fsc']
 let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_cpp_compiler = 'g++'
 let g:syntastic_cpp_compiler_options = ' -std=c++11 -stdlib=libc++'
@@ -303,6 +315,7 @@ vnoremap < <gv
 nnoremap <C-e> j<C-e>
 nnoremap <C-y> k<C-y>
 
+map <F5> :!run<CR>
 " }}}
 
 " Functions {{{
