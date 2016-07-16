@@ -204,7 +204,7 @@ nmap <Return> <Plug>OpenNewline
 nmap <S-Return> <Plug>InsertNewLine
 
 " fast .vimrc access
-nnoremap <Leader>htm :read ~/src/home-config/template.html<CR>
+execute "nnoremap <Leader>htm :read " . g:my_vim_folder . "/template.html<CR>"
 nnoremap <LocalLeader>v :e $MYVIMRC<CR>
 nnoremap <LocalLeader>o :source $MYVIMRC<CR>
 
