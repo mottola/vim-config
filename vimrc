@@ -66,20 +66,17 @@ end
 " I  like this personally
 if !has("win32") || has("gui_running")
   set list
-  set listchars=tab:\⇒\─,trail:\‣,extends:\↷,precedes:\↶
+  set listchars=tab:\→\ ,trail:\‣,extends:\↷,precedes:\↶
 end
 
-" But for example, you might like something like this
+" other examples
+" set listchars=tab:\⇒\─,trail:\‣,extends:\↷,precedes:\↶
 " set listchars=tab:\→\ ,trail:\‣,extends:\↷,precedes:\↶
-"
-" Or something more cluttered, like this
 " set listchars=tab:\↴\⇒,trail:\⎕,extends:\↻,precedes:\↺,eol:\↵
-"
-" Or something more prominent but still thin and line oriented
 " set listchars=tab:\┼\─,trail:\˽,extends:\↷,precedes:\↶
 
 " spaces, no tabs
-set tabstop=8
+set tabstop=2
 set shiftwidth=2
 set softtabstop=2
 set expandtab
@@ -202,6 +199,8 @@ let mapleader = " "
 
 nmap <Return> <Plug>OpenNewline
 nmap <S-Return> <Plug>InsertNewLine
+
+let g:my_vim_folder = split(&rtp, ",")[0]
 
 " fast .vimrc access
 execute "nnoremap <Leader>htm :read " . g:my_vim_folder . "/template.html<CR>"
