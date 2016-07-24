@@ -14,7 +14,7 @@ if has("gui_running")
     if has("macunix")
       set gfn=DejaVu\ Sans\ Mono:h18
     else
-      set gfn=DejaVu\ Sans\ Mono\ 14
+      set gfn=Ubuntu\ Mono\ 14
     endif
   endif
 
