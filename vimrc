@@ -76,7 +76,7 @@ end
 " set listchars=tab:\┼\─,trail:\˽,extends:\↷,precedes:\↶
 
 " spaces, no tabs
-set tabstop=2
+set tabstop=8
 set shiftwidth=2
 set softtabstop=2
 set expandtab
@@ -150,12 +150,15 @@ let g:jsx_ext_required = 1
 
 "let g:syntastic_debug = 1
 
-let g:syntastic_c_checkers = ['clang_check']
-let g:syntastic_clang_check_config_file = '.syntastic_clang_check_config'
+if !has("win32")
+  let g:syntastic_c_checkers = ['clang_check']
+  let g:syntastic_clang_check_config_file = '.syntastic_clang_check_config'
+end
+
 let g:syntastic_scala_checkers = ['fsc']
 let g:syntastic_javascript_checkers = ['eslint']
-let g:syntastic_cpp_compiler = 'g++'
-let g:syntastic_cpp_compiler_options = ' -std=c++11 -stdlib=libc++'
+" let g:syntastic_cpp_compiler = 'g++'
+" let g:syntastic_cpp_compiler_options = ' -std=c++11 -stdlib=libc++'
 
 if has("unix") && !has("macunix")
   let g:clang_library_path = '/usr/lib/x86_64-linux-gnu/libclang-3.8.so.1'
@@ -239,6 +242,9 @@ vmap <LocalLeader>pj S]gvS)
 nnoremap <Leader>jsb :call JsBeautify()<CR>
 vnoremap <Leader>jsb :call JsBeautifyRange()<CR>
 
+nmap <Leader>ll :call MyDebugLogMakerLine()<CR>
+nmap <Leader>lv :call MyDebugLogMakerVar()<CR>
+
 " js [Y]ourself, output a token's name and it's value
 nmap <Leader>jsy ^yypysiW)kysiW"ysiW)^iconsole.log<ESC>j^.$a;<ESC>k$a;<ESC>
 nmap <Leader>jsl ^v$hS"gvS)^iconsole.log<ESC>$a;<ESC>
@@ -318,6 +324,65 @@ map <F5> :!run<CR>
 " }}}
 
 " Functions {{{
+function! MyDebugLogMakerLine()
+  normal ^v$h"ly
+  let text=@l
+  let value=''
+
+  call MyDebugLogMaker(text, value)
+endfunction
+
+function! MyDebugLogMakerVar()
+  normal viw"ly
+  let text=@l
+  let value=text
+
+  call MyDebugLogMaker(text, value)
+endfunction
+
+function! MyDebugLogMaker(text, value)
+  let my_filetype=&filetype
+
+  call GenDebugLogLanguage(a:text, a:value, my_filetype)
+endfunction
+
+function! GenDebugLogLanguage(text, value, my_filetype)
+  if a:my_filetype == 'cpp'
+    let q='"'
+    let cmd_prefix='LOGGER '
+    let cmd_suffix=';'
+    let item_prefix=' << '
+    let item_suffix=''
+    if strlen(a:value) > 0
+      let msg_format='{{target}}: '
+    else
+      let msg_format='{{target}}'
+    endif
+  endif
+
+  echo substitute('"{{target}}: "', '{{target}}', 'sql', '')
+  call GenDebugLog(a:text, a:value, cmd_prefix, cmd_suffix, item_prefix, item_suffix, msg_format, q)
+endfunction
+
+function! GenDebugLog(text, value, cmd_prefix, cmd_suffix, item_prefix, item_suffix, msg_format, q)
+  if strlen(a:value) > 0
+    let value_item=a:item_prefix . a:value . a:item_suffix
+  else
+    let value_item=''
+  endif
+
+  let message_output=substitute(a:msg_format, '{{target}}', a:text, '')
+  let message=a:q . message_output  . a:q
+  let text_item=a:item_prefix . message . a:item_suffix
+
+  let cmd=text_item . value_item
+  let output=a:cmd_prefix . cmd  . a:cmd_suffix
+
+  normal ddk
+  put =output
+  normal ==
+endfunction
+
 function! ToggleMousePaste()
   if &mouse == 'a'
     set paste
