@@ -9,12 +9,12 @@ endif
 " Font and Colorscheme {{{
 if has("gui_running")
   if has("win32")
-    set gfn=DejaVu_Sans_Mono:h14
+    set gfn=DejaVu_Sans_Mono:h16
   elseif has("unix")
     if has("macunix")
       set gfn=DejaVu\ Sans\ Mono:h18
     else
-      set gfn=Ubuntu\ Mono\ 14
+      set gfn=Ubuntu\ Mono\ 16
     endif
   endif
 
@@ -49,6 +49,18 @@ end
 " }}}
 
 " Option Settings {{{
+set tabstop=8
+
+" cindent
+set cindent
+set cinoptions=
+set cinoptions+=t0
+set cinoptions+=j1
+set cinoptions+=m1
+set cinoptions+=(s
+set cinoptions+=N-s
+
+" general
 set hidden
 set wildmenu
 set nocompatible
@@ -74,13 +86,6 @@ end
 " set listchars=tab:\→\ ,trail:\‣,extends:\↷,precedes:\↶
 " set listchars=tab:\↴\⇒,trail:\⎕,extends:\↻,precedes:\↺,eol:\↵
 " set listchars=tab:\┼\─,trail:\˽,extends:\↷,precedes:\↶
-
-" spaces, no tabs
-set tabstop=8
-set shiftwidth=2
-set softtabstop=2
-set expandtab
-set smarttab
 
 if maparg('<C-L>', 'n') ==# ''
   nnoremap <silent> <C-L> :nohlsearch<CR><C-L>
@@ -144,21 +149,24 @@ endif
 
 " Plugin Settings {{{
 
+let g:cpp_class_scope_highlight = 1
+let g:cpp_concepts_highlight = 1
+
 "let g:tagbar_ctags_bin = 'jsctags -r'
 
 let g:jsx_ext_required = 1
 
 "let g:syntastic_debug = 1
 
-if !has("win32")
-  let g:syntastic_c_checkers = ['clang_check']
-  let g:syntastic_clang_check_config_file = '.syntastic_clang_check_config'
-end
-
-let g:syntastic_scala_checkers = ['fsc']
-let g:syntastic_javascript_checkers = ['eslint']
-" let g:syntastic_cpp_compiler = 'g++'
-" let g:syntastic_cpp_compiler_options = ' -std=c++11 -stdlib=libc++'
+"if !has("win32")
+"  let g:syntastic_c_checkers = ['clang_check']
+"  let g:syntastic_clang_check_config_file = '.syntastic_clang_check_config'
+"end
+"
+"let g:syntastic_scala_checkers = ['fsc']
+"let g:syntastic_javascript_checkers = ['eslint']
+"let g:syntastic_cpp_compiler = 'g++'
+"let g:syntastic_cpp_compiler_options = ' -std=c++11 -stdlib=libc++'
 
 if has("unix") && !has("macunix")
   let g:clang_library_path = '/usr/lib/x86_64-linux-gnu/libclang-3.8.so.1'
@@ -200,9 +208,6 @@ autocmd BufNew,BufRead * setlocal relativenumber
 let maplocalleader = "\\"
 let mapleader = " "
 
-nmap <Return> <Plug>OpenNewline
-nmap <S-Return> <Plug>InsertNewLine
-
 let g:my_vim_folder = split(&rtp, ",")[0]
 
 " fast .vimrc access
@@ -210,70 +215,26 @@ execute "nnoremap <Leader>htm :read " . g:my_vim_folder . "/template.html<CR>"
 nnoremap <LocalLeader>v :e $MYVIMRC<CR>
 nnoremap <LocalLeader>o :source $MYVIMRC<CR>
 
-" toggles
-let g:ctrlp_map = '<Leader>p'
-
 " update plugins
 nnoremap <Leader>upd :!~/.vim/bin/update.sh<CR>
 
-nnoremap <LocalLeader>f :botright copen<CR>
-nnoremap <LocalLeader>x :cclose<CR>
-nnoremap <LocalLeader>t :TagbarToggle<CR>
-nnoremap <LocalLeader>n :NERDTreeToggle<CR>
-nnoremap <LocalLeader>h :set hls!<CR>
-nnoremap <Return>       :call ToggleFold()<CR>
+nnoremap <LocalLeader>f  :botright copen<CR>
+nnoremap <LocalLeader>x  :cclose<CR>
+nnoremap <LocalLeader>t  :TagbarToggle<CR>
+nnoremap <LocalLeader>n  :NERDTreeToggle<CR>
+nnoremap <LocalLeader>h  :set hls!<CR>
 nnoremap <LocalLeader>rn :call ToggleRelativeNumber()<CR>
 vnoremap <LocalLeader>rn :call ToggleRelativeNumberVisual()<CR>
-nnoremap <LocalLeader>w :call ToggleWrap()<CR>
-nnoremap <LocalLeader>m :call ToggleMousePaste()<CR>
-nnoremap <LocalLeader>z :syntax on<CR>
+nnoremap <LocalLeader>w  :call ToggleWrap()<CR>
+nnoremap <LocalLeader>m  :call ToggleMousePaste()<CR>
 
 " filters
-nnoremap <LocalLeader>q {v}!par -jw
-vnoremap <LocalLeader>q !par -jw
-vnoremap <LocalLeader>a !perl ~/.vim/bin/align.pl -c:=
 nnoremap <LocalLeader>s :call StripWhitespace()<CR>
 
-" python
-"vmap <LocalLeader>pj S]gvS)i''.join<ESC>
-vmap <LocalLeader>pj S]gvS)
-
-" javascript specific stuff
-nnoremap <Leader>jsb :call JsBeautify()<CR>
-vnoremap <Leader>jsb :call JsBeautifyRange()<CR>
-
-nmap <Leader>ll :call MyDebugLogMakerLine()<CR>
-nmap <Leader>lv :call MyDebugLogMakerVar()<CR>
-
 " js [Y]ourself, output a token's name and it's value
-nmap <Leader>jsy ^yypysiW)kysiW"ysiW)^iconsole.log<ESC>j^.$a;<ESC>k$a;<ESC>
-nmap <Leader>jsl ^v$hS"gvS)^iconsole.log<ESC>$a;<ESC>
-vmap <Leader>jsl S"gvS)^iconsole.log<ESC>$a;<ESC>
-nmap <Leader>jsf o'': function() {<CR>},<CR><ESC>kOvar view;<CR><CR>view = this;<CR><ESC>5k0wa
-nmap <Leader>jsc ifunction() {<CR>}<ESC>k/function<CR>f(a
-
-" Java
-nmap <Leader>jay ^yypysiW)kysiW"ysiW)^iSystem.out.println<ESC>j^.$a;<ESC>k$a;<ESC>
-nmap <Leader>jal ^v$hS"gvS)^iSystem.out.println<ESC>$a;<ESC>
-vmap <Leader>jal S"gvS)^iSystem.out.println<ESC>$a;<ESC>
-
-" [W]ow, that's a big string you have
-nmap <Leader>ryw diWoputs "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"<ESC>opp <ESC>pkk:s/^\s*\n//<CR>oputs "<ESC>pa"<ESC>kk:s/^\s*\n//<CR>
-nmap <Leader>ryo oputs "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"<ESC>
-
-" [E]xpression var dump, output a tokens's name and it's value
-nmap <Leader>rye yiWyss}i#<ESC>vl%S"pa: <ESC>^iputs <ESC>
-
-" [I]nterpolate, wrap a single strict word like this #{foo}
-nmap <Leader>ryi viwS}i#<ESC>
-vmap <Leader>ryi S}i#<ESC>
-
-" output an entire line of text
-nmap <Leader>ryl ^v$hS"^iputs <ESC>
-vmap <Leader>ryl S"gvS"^iputs <ESC>
-
-"nmap <LocalLeader>pdv ysiW(^iecho "<pre>"; var_dump<ESC>$a; exit;<ESC>
-"nmap <LocalLeader>pdf ysiW(ysi((iget_class_methods<ESC>^iecho "<pre>"; var_dump<ESC>$a; exit;<ESC>
+nmap <Leader>jsy :call QuickLoggerVar()<CR>
+nmap <Leader>jsl :call QuickLoggerLine()<CR>
+nmap <Leader>jsc :call GetClosure()<CR>
 
 " auto insert curly braces on Control-F
 inoremap <C-F> {<CR>}<C-O>O
@@ -281,7 +242,6 @@ inoremap <C-F> {<CR>}<C-O>O
 " alt key substitutions for normal style
 " editor things like copy paste save
 " close and quit
-nnoremap <M-q> :qa!<CR>
 nnoremap <M-a> ggVG
 nnoremap <M-v> "+P
 nnoremap <M-V> "+p
@@ -290,24 +250,6 @@ vnoremap <M-x> "+x
 nnoremap <M-s> :w<CR>
 nnoremap <M-w> :BD<CR>
 nnoremap <M-W> :bd<CR>
-nnoremap <M-n> :bn<CR>
-nnoremap <M-p> :bp<CR>
-
-nnoremap <M-1> :YRGetElem 1<CR>
-nnoremap <M-2> :YRGetElem 2<CR>
-nnoremap <M-3> :YRGetElem 3<CR>
-nnoremap <M-4> :YRGetElem 4<CR>
-nnoremap <M-5> :YRGetElem 5<CR>
-nnoremap <M-6> :YRGetElem 6<CR>
-nnoremap <M-7> :YRGetElem 7<CR>
-nnoremap <M-8> :YRGetElem 8<CR>
-nnoremap <M-9> :YRGetElem 9<CR>
-nnoremap <M-0> :YRGetElem 10<CR>
-
-" show and hide the menubar, toolbar and scrollbar respectively
-nnoremap <C-F1> :if &go=~#'m'<Bar>set go-=m<Bar>else<Bar>set go+=m<Bar>endif<CR>
-nnoremap <C-F2> :if &go=~#'T'<Bar>set go-=T<Bar>else<Bar>set go+=T<Bar>endif<CR>
-nnoremap <C-F3> :if &go=~#'r'<Bar>set go-=r<Bar>else<Bar>set go+=r<Bar>endif<CR>
 
 " make indentation easier by default
 nnoremap < <<
@@ -324,138 +266,231 @@ map <F5> :!run<CR>
 " }}}
 
 " Functions {{{
-function! MyDebugLogMakerLine()
-  normal ^v$h"ly
-  let text=@l
-  let value=''
-
-  call MyDebugLogMaker(text, value)
-endfunction
-
-function! MyDebugLogMakerVar()
-  normal viw"ly
-  let text=@l
-  let value=text
-
-  call MyDebugLogMaker(text, value)
-endfunction
-
-function! MyDebugLogMaker(text, value)
-  let my_filetype=&filetype
-
-  call GenDebugLogLanguage(a:text, a:value, my_filetype)
-endfunction
-
-function! GenDebugLogLanguage(text, value, my_filetype)
-  if a:my_filetype == 'cpp'
-    let q='"'
-    let cmd_prefix='LOGGER '
-    let cmd_suffix=';'
-    let item_prefix=' << '
-    let item_suffix=''
-    if strlen(a:value) > 0
-      let msg_format='{{target}}: '
-    else
-      let msg_format='{{target}}'
-    endif
-  endif
-
-  echo substitute('"{{target}}: "', '{{target}}', 'sql', '')
-  call GenDebugLog(a:text, a:value, cmd_prefix, cmd_suffix, item_prefix, item_suffix, msg_format, q)
-endfunction
-
-function! GenDebugLog(text, value, cmd_prefix, cmd_suffix, item_prefix, item_suffix, msg_format, q)
-  if strlen(a:value) > 0
-    let value_item=a:item_prefix . a:value . a:item_suffix
-  else
-    let value_item=''
-  endif
-
-  let message_output=substitute(a:msg_format, '{{target}}', a:text, '')
-  let message=a:q . message_output  . a:q
-  let text_item=a:item_prefix . message . a:item_suffix
-
-  let cmd=text_item . value_item
-  let output=a:cmd_prefix . cmd  . a:cmd_suffix
-
-  normal ddk
-  put =output
-  normal ==
-endfunction
-
 function! ToggleMousePaste()
-  if &mouse == 'a'
-    set paste
-    set mouse=
-    set nonumber
-    echo 'Mouse Paste ON'
-  else
-    set nopaste
-    set number
-    set mouse=a
-    echo 'Mouse Paste OFF'
-  endif
+	if &mouse == 'a'
+		set paste
+		set mouse=
+		set nonumber
+		echo 'Mouse Paste ON'
+	else
+		set nopaste
+		set number
+		set mouse=a
+		echo 'Mouse Paste OFF'
+	endif
 endfunction
 
 function! ToggleRelativeNumberVisual()
-  call ToggleRelativeNumber()
-  normal gvj
+	call ToggleRelativeNumber()
+	normal gvj
 endfunction
 
 function! ToggleRelativeNumber()
-  if( &nu == 1 )
-    set nonu
-    set rnu
-  else
-    set nu
-    set nornu
-  endif
+	if( &nu == 1 )
+		set nonu
+		set rnu
+	else
+		set nu
+		set nornu
+	endif
 endfunction
 
 function! ToggleWrap()
-  set wrap!
+	set wrap!
 
-  if( &wrap == 1 )
-    nmap j gj
-    nmap k gk
-  else
-    unmap j
-    unmap k
-  endif
+	if( &wrap == 1 )
+		nmap j gj
+		nmap k gk
+	else
+		unmap j
+		unmap k
+	endif
 endfunction
 
 function! ToggleFold()
-  if foldlevel('.') == 0
-    normal! l
-  else
-    if foldclosed('.') < 0
-      . foldclose
-    else
-      . foldopen
-    endif
-  endif
-  " Clear status line
-  echo
+	if foldlevel('.') == 0
+		normal! l
+	else
+		if foldclosed('.') < 0
+			. foldclose
+		else
+			. foldopen
+		endif
+	endif
+	" Clear status line
+	echo
 endfunction
 
 function! StripWhitespace()
-  let currPos=Mark()
-  exe 'v:^--\s*$:s:\s\+$::e'
-  exe currPos
+	let currPos=Mark()
+	exe 'v:^--\s*$:s:\s\+$::e'
+	exe currPos
 endfunction
 
 function! Mark(...)
-  if a:0 == 0
-    let mark = line(".") . "G" . virtcol(".") . "|"
-    normal! H
-    let mark = "normal!" . line(".") . "Gzt" . mark
-    execute mark
-    return mark
-  elseif a:0 == 1
-    return "normal!" . a:1 . "G1|"
-  else
-    return "normal!" . a:1 . "G" . a:2 . "|"
-  endif
+	if a:0 == 0
+		let mark = line(".") . "G" . virtcol(".") . "|"
+		normal! H
+		let mark = "normal!" . line(".") . "Gzt" . mark
+		execute mark
+		return mark
+	elseif a:0 == 1
+		return "normal!" . a:1 . "G1|"
+	else
+		return "normal!" . a:1 . "G" . a:2 . "|"
+	endif
 endfunction
-" }}} Functions 
 
+function! GetLoggingStatement(token, label)
+	let token = a:token
+	let label = a:label
+
+	let joiner = ""
+	let log_line = ""
+	let line_prefix = ""
+	let line_suffix = ""
+
+	let syntax_type = &ft
+	" if syntax_type == "cpp"
+	" 	let line_prefix = "LOGGER << "
+	" 	let line_suffix = ";"
+
+	" 	if strlen(token) > 0 && strlen(label) <= 0
+	" 		let label = "\"" . token . " = \""
+	" 	elseif  strlen(token) <= 0 && strlen(label) > 0
+	" 		let label = "\"" . label . "\""
+	" 	else
+	" 		let label = label
+	" 	endif
+
+	" 	if strlen(token) > 0 && strlen(label) > 0
+	" 		let joiner = " << "
+	" 	else
+	" 		let joiner = ""
+	" 	endif
+
+	if syntax_type == "python"
+		let line_prefix = "print("
+		let line_suffix = ")"
+
+		if strlen(token) > 0 && strlen(label) <= 0
+			let label = "\"" . token . "\""
+		elseif  strlen(token) <= 0 && strlen(label) > 0
+			let label = "\"" . label . "\""
+		else
+			let label = label
+		endif
+
+		if strlen(token) > 0 && strlen(label) > 0
+			let joiner = line_suffix . "\n" . line_prefix
+		else
+			let joiner = ""
+		endif
+
+	if syntax_type == "cpp"
+		let line_prefix = "std::cout << "
+		let line_suffix = " << std::endl;"
+
+		if strlen(token) > 0 && strlen(label) <= 0
+			let label = "\"" . token . " = \""
+		elseif  strlen(token) <= 0 && strlen(label) > 0
+			let label = "\"" . label . "\""
+		else
+			let label = label
+		endif
+
+		if strlen(token) > 0 && strlen(label) > 0
+			let joiner = " << "
+		else
+			let joiner = ""
+		endif
+
+	elseif syntax_type == "java"
+		let line_prefix = "System.out.println("
+		let line_suffix = ");"
+
+		if strlen(token) > 0 && strlen(label) <= 0
+			let label = "\"" . token . "\""
+		elseif strlen(token) <= 0 && strlen(label) > 0
+			let label = "\"" . label . "\""
+		else
+			let label = label
+		endif
+
+		if strlen(token) > 0 && strlen(label) > 0
+			let joiner = line_suffix . "\n" . line_prefix
+		else
+			let joiner = ""
+		endif
+	elseif syntax_type == "javascript"
+		let line_prefix = "console.log("
+		let line_suffix = ");"
+
+		if strlen(token) > 0 && strlen(label) <= 0
+			let label = "\"" . token . "\""
+		elseif strlen(token) <= 0 && strlen(label) > 0
+			let label = "\"" . label . "\""
+		else
+			let label = label
+		endif
+
+		if strlen(token) > 0 && strlen(label) > 0
+			let joiner = line_suffix . "\n" . line_prefix
+		else
+			let joiner = ""
+		endif
+	endif
+
+	let log_line = line_prefix . label . joiner  . token . line_suffix
+
+	return log_line
+endfunction
+
+function! GetVarLogOutput()
+	let loggingTarget = expand("<cWORD>")
+	let loggingOutput = GetLoggingStatement(loggingTarget, "")
+	return loggingOutput
+endfunction
+
+function! GetLineLogOutput()
+	let curLine = getline(".")
+	let loggingTarget = substitute(curLine, "^\\s*\\(.*\\)\\s*$", "\\1", "")
+	let loggingOutput = GetLoggingStatement("", loggingTarget)
+	return loggingOutput
+endfunction
+
+function! QuickLoggerVar()
+	let result = GetVarLogOutput()
+	normal ma
+	put =result
+	normal 'a
+	normal dd
+	normal =j
+endfunction
+
+function! QuickLoggerLine()
+	let result = GetLineLogOutput()
+	normal ma
+	put =result
+	normal 'a
+	normal dd
+	normal ==
+endfunction
+
+function! GetClosure()
+	let closure = ""
+	let syntax_type = &ft
+
+	normal ma
+	if syntax_type == "cpp"
+		let closure = "[](auto &x) {\nreturn x;\n}"
+	elseif syntax_type == "javascript"
+		let closure = "(x) => {\nreturn x;\n}"
+	elseif syntax_type == "ruby"
+		let closure = "{ |x| x * x }"
+	endif
+
+	exe "normal i" . closure
+	normal k^
+endfunction
+" }}} Functions
