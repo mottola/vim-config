@@ -1,81 +1,24 @@
-[submodule "pack/rswplugins/start/vim-eco"]
-	path = pack/rswplugins/start/vim-eco
-	url = https://github.com/AndrewRadev/vim-eco.git
-[submodule "pack/rswplugins/start/vim-scala"]
-	path = pack/rswplugins/start/vim-scala
-	url = https://github.com/derekwyatt/vim-scala.git
 [submodule "pack/rswplugins/start/vim-colorschemes"]
 	path = pack/rswplugins/start/vim-colorschemes
 	url = https://github.com/flazz/vim-colorschemes.git
-[submodule "pack/rswplugins/start/vim-less"]
-	path = pack/rswplugins/start/vim-less
-	url = https://github.com/genoma/vim-less.git
-[submodule "pack/rswplugins/start/vim-jst"]
-	path = pack/rswplugins/start/vim-jst
-	url = https://github.com/jeyb/vim-jst.git
-[submodule "pack/rswplugins/start/vim-coffee-script"]
-	path = pack/rswplugins/start/vim-coffee-script
-	url = https://github.com/kchmck/vim-coffee-script.git
 [submodule "pack/rswplugins/start/ctrlp.vim"]
 	path = pack/rswplugins/start/ctrlp.vim
 	url = https://github.com/ctrlpvim/ctrlp.vim.git
 [submodule "pack/rswplugins/start/tagbar"]
 	path = pack/rswplugins/start/tagbar
 	url = https://github.com/majutsushi/tagbar.git
-[submodule "pack/rswplugins/start/tern_for_vim"]
-	path = pack/rswplugins/start/tern_for_vim
-	url = https://github.com/marijnh/tern_for_vim.git
-[submodule "pack/rswplugins/start/vim-handlebars"]
-	path = pack/rswplugins/start/vim-handlebars
-	url = https://github.com/nono/vim-handlebars.git
-[submodule "pack/rswplugins/start/vim-cpp-enhanced-highlight"]
-	path = pack/rswplugins/start/vim-cpp-enhanced-highlight
-	url = https://github.com/octol/vim-cpp-enhanced-highlight.git
-[submodule "pack/rswplugins/start/vim-javascript"]
-	path = pack/rswplugins/start/vim-javascript
-	url = https://github.com/pangloss/vim-javascript.git
-[submodule "pack/rswplugins/start/vim-ps1"]
-	path = pack/rswplugins/start/vim-ps1
-	url = https://github.com/PProvost/vim-ps1.git
-[submodule "pack/rswplugins/start/clang_complete"]
-	path = pack/rswplugins/start/clang_complete
-	url = https://github.com/Rip-Rip/clang_complete.git
-[submodule "pack/rswplugins/start/ag.vim"]
-	path = pack/rswplugins/start/ag.vim
-	url = https://github.com/rking/ag.vim.git
 [submodule "pack/rswplugins/start/nerdtree"]
 	path = pack/rswplugins/start/nerdtree
 	url = https://github.com/scrooloose/nerdtree.git
-[submodule "pack/rswplugins/start/syntastic"]
-	path = pack/rswplugins/start/syntastic
-	url = https://github.com/scrooloose/syntastic.git
 [submodule "pack/rswplugins/start/vim-fugitive"]
 	path = pack/rswplugins/start/vim-fugitive
 	url = https://github.com/tpope/vim-fugitive.git
-[submodule "pack/rswplugins/start/vim-haml"]
-	path = pack/rswplugins/start/vim-haml
-	url = https://github.com/tpope/vim-haml.git
-[submodule "pack/rswplugins/start/vim-liquid"]
-	path = pack/rswplugins/start/vim-liquid
-	url = https://github.com/tpope/vim-liquid.git
 [submodule "pack/rswplugins/start/vim-surround"]
 	path = pack/rswplugins/start/vim-surround
 	url = https://github.com/tpope/vim-surround.git
 [submodule "pack/rswplugins/start/bufkill.vim"]
 	path = pack/rswplugins/start/bufkill.vim
 	url = https://github.com/vim-scripts/bufkill.vim.git
-[submodule "pack/rswplugins/start/VimClojure"]
-	path = pack/rswplugins/start/VimClojure
-	url = https://github.com/vim-scripts/VimClojure.git
 [submodule "pack/rswplugins/start/YankRing.vim"]
 	path = pack/rswplugins/start/YankRing.vim
 	url = https://github.com/vim-scripts/YankRing.vim.git
-[submodule "pack/rswplugins/start/vim-stylus"]
-	path = pack/rswplugins/start/vim-stylus
-	url = https://github.com/wavded/vim-stylus.git
-[submodule "pack/rswplugins/start/pack/rswplugins/start/vim-eco"]
-	path = pack/rswplugins/start/pack/rswplugins/start/vim-eco
-	url = https://github.com/AndrewRadev/vim-eco.git
-[submodule "pack/rswplugins/start/pack/rswplugins/start/vim-scala"]
-	path = pack/rswplugins/start/pack/rswplugins/start/vim-scala
-	url = https://github.com/derekwyatt/vim-scala.git
