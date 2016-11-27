@@ -1,50 +1,51 @@
 if has('autocmd')
-  filetype plugin indent on
+	filetype plugin indent on
 endif
 
 if has('syntax') && !exists('g:syntax_on')
-  syntax enable
+	syntax enable
 endif
 
 " Font and Colorscheme {{{
 if has("gui_running")
-  if has("win32")
-    set gfn=DejaVu_Sans_Mono:h16
-  elseif has("unix")
-    if has("macunix")
-      set gfn=DejaVu\ Sans\ Mono:h18
-    else
-      set gfn=Ubuntu\ Mono\ 16
-    endif
-  endif
+	colorscheme visualstudio
+	"colorscheme solarized
+	"set background=light
 
-  "colorscheme solarized
-  "set background=light
+	"colorscheme molokai
+	"hi Folded guifg=#dddddd guibg=#222222
 
-  colorscheme molokai
-  "hi Folded guifg=#dddddd guibg=#1B1D1E
-  hi Folded guifg=#dddddd guibg=#222222
+	"colorscheme softlight
+	"hi Special gui=NONE guifg=#0E8ED3 guibg=#ffffff
 
-  "colorscheme softlight
-  "hi Special gui=NONE guifg=#0E8ED3 guibg=#ffffff
+	"colorscheme softblue
 
-  "colorscheme softblue
+	"colorscheme google
+	"hi Statement guifg=#2a5db0 guibg=#ffffff gui=bold
 
-  "colorscheme google
-  "hi Statement guifg=#2a5db0 guibg=#ffffff gui=bold
+	if has("win32")
+		set gfn=Source_Code_Pro:h11:cANSI:qDRAFT
+	elseif has("unix")
+		if has("macunix")
+			set gfn=DejaVu\ Sans\ Mono:h18
+		else
+			set gfn=Ubuntu\ Mono\ 16
+		endif
+	endif
+
 else
-  if &t_Co == 8 && $TERM !~# '^linux'
-    set t_Co=16
-  endif
+	if &t_Co == 8 && $TERM !~# '^linux'
+		set t_Co=16
+	endif
 
-  colorscheme molokai
-  "hi Folded guifg=#dddddd guibg=#1B1D1E
-  hi Folded guifg=#dddddd guibg=#222222
+	colorscheme molokai
+	"hi Folded guifg=#dddddd guibg=#1B1D1E
+	hi Folded guifg=#dddddd guibg=#222222
 
-  "colorscheme inkpot
-  "hi Folded guibg=#1c314c guifg=#dddddd
+	"colorscheme inkpot
+	"hi Folded guibg=#1c314c guifg=#dddddd
 
-  set mouse=a
+	set mouse=a
 end
 " }}}
 
@@ -72,13 +73,13 @@ set winaltkeys=no
 set guioptions=aegimrLtT
 
 if has("win32") && has("gui_running")
-  set encoding=utf-8
+	set encoding=utf-8
 end
 
 " I  like this personally
 if !has("win32") || has("gui_running")
-  set list
-  set listchars=tab:\→\ ,trail:\‣,extends:\↷,precedes:\↶
+	set list
+	set listchars=tab:\→\ ,trail:\‣,extends:\↷,precedes:\↶
 end
 
 " other examples
@@ -88,15 +89,15 @@ end
 " set listchars=tab:\┼\─,trail:\˽,extends:\↷,precedes:\↶
 
 if maparg('<C-L>', 'n') ==# ''
-  nnoremap <silent> <C-L> :nohlsearch<CR><C-L>
+	nnoremap <silent> <C-L> :nohlsearch<CR><C-L>
 endif
 
 if !&scrolloff
-  set scrolloff=1
+	set scrolloff=1
 endif
 
 if !&sidescrolloff
-  set sidescrolloff=5
+	set sidescrolloff=5
 endif
 
 " search
@@ -126,25 +127,25 @@ set statusline=[%n]\ %<%.99f\ %h%w%m%r%y%{fugitive#statusline()}%=%-16(\ %l,%c\ 
 
 " Sophisticated Swap Files
 if has("win32")
-  if exists("my_diff_mode_flag") && my_diff_mode_flag == 1
-    set directory=C:\WINDOWS\Temp,~\tmp,~,~\vimfiles\swpdiff,.
-  else
-    set directory=C:\WINDOWS\Temp,~\tmp,~,~\vimfiles\swp,.
-  endif
+	if exists("my_diff_mode_flag") && my_diff_mode_flag == 1
+		set directory=C:\WINDOWS\Temp,~\tmp,~,~\vimfiles\swpdiff,.
+	else
+		set directory=C:\WINDOWS\Temp,~\tmp,~,~\vimfiles\swp,.
+	endif
 elseif has("unix")
-  if exists("my_diff_mode_flag") && my_diff_mode_flag == 1
-    set directory=/tmp,~/.swpdiff,~/tmp,~/.vim/.swpdiff,~/.vim/swpdiff,~,.
-  else
-    set directory=/tmp,~/.swp,~/tmp,~/.vim/.swp,~/.vim/swp,~,.
-  endif
+	if exists("my_diff_mode_flag") && my_diff_mode_flag == 1
+		set directory=/tmp,~/.swpdiff,~/tmp,~/.vim/.swpdiff,~/.vim/swpdiff,~,.
+	else
+		set directory=/tmp,~/.swp,~/tmp,~/.vim/.swp,~/.vim/swp,~,.
+	endif
 endif
 " }}}
 
 if has("win32")
-  set shell=C:\Windows\System32\cmd.exe
-  set shellcmdflag=/c
-  set shellxquote=(
-  "set shellredir=>%s 2>&1
+	set shell=C:\Windows\System32\cmd.exe
+	set shellcmdflag=/c
+	set shellxquote=(
+	"set shellredir=>%s 2>&1
 endif
 
 " Plugin Settings {{{
@@ -169,7 +170,7 @@ let g:jsx_ext_required = 1
 "let g:syntastic_cpp_compiler_options = ' -std=c++11 -stdlib=libc++'
 
 if has("unix") && !has("macunix")
-  let g:clang_library_path = '/usr/lib/x86_64-linux-gnu/libclang-3.8.so.1'
+	let g:clang_library_path = '/usr/lib/x86_64-linux-gnu/libclang-3.8.so.1'
 end
 
 " prevent annoying warnings from nerdtree
@@ -351,24 +352,6 @@ function! GetLoggingStatement(token, label)
 	let line_suffix = ""
 
 	let syntax_type = &ft
-	" if syntax_type == "cpp"
-	" 	let line_prefix = "LOGGER << "
-	" 	let line_suffix = ";"
-
-	" 	if strlen(token) > 0 && strlen(label) <= 0
-	" 		let label = "\"" . token . " = \""
-	" 	elseif  strlen(token) <= 0 && strlen(label) > 0
-	" 		let label = "\"" . label . "\""
-	" 	else
-	" 		let label = label
-	" 	endif
-
-	" 	if strlen(token) > 0 && strlen(label) > 0
-	" 		let joiner = " << "
-	" 	else
-	" 		let joiner = ""
-	" 	endif
-
 	if syntax_type == "python"
 		let line_prefix = "print("
 		let line_suffix = ")"
@@ -387,9 +370,9 @@ function! GetLoggingStatement(token, label)
 			let joiner = ""
 		endif
 
-	if syntax_type == "cpp"
-		let line_prefix = "std::cout << "
-		let line_suffix = " << std::endl;"
+	elseif syntax_type == "cpp"
+		let line_prefix = "LOGGER << "
+		let line_suffix = ";"
 
 		if strlen(token) > 0 && strlen(label) <= 0
 			let label = "\"" . token . " = \""
@@ -404,6 +387,24 @@ function! GetLoggingStatement(token, label)
 		else
 			let joiner = ""
 		endif
+
+		" elseif syntax_type == "cpp"
+		" 	let line_prefix = "std::cout << "
+		" 	let line_suffix = " << std::endl;"
+
+		" 	if strlen(token) > 0 && strlen(label) <= 0
+		" 		let label = "\"" . token . " = \""
+		" 	elseif  strlen(token) <= 0 && strlen(label) > 0
+		" 		let label = "\"" . label . "\""
+		" 	else
+		" 		let label = label
+		" 	endif
+
+		" 	if strlen(token) > 0 && strlen(label) > 0
+		" 		let joiner = " << "
+		" 	else
+		" 		let joiner = ""
+		" 	endif
 
 	elseif syntax_type == "java"
 		let line_prefix = "System.out.println("
