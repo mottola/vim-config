@@ -24,7 +24,7 @@ if has("gui_running")
 	"hi Statement guifg=#2a5db0 guibg=#ffffff gui=bold
 
 	if has("win32")
-		set gfn=Source_Code_Pro:h11:cANSI:qDRAFT
+		set gfn=DejaVu_Sans_Mono:h12
 	elseif has("unix")
 		if has("macunix")
 			set gfn=DejaVu\ Sans\ Mono:h18
@@ -209,10 +209,13 @@ autocmd BufNew,BufRead * setlocal relativenumber
 let maplocalleader = "\\"
 let mapleader = " "
 
+let g:ctrlp_map = "<Leader>p"
+
 let g:my_vim_folder = split(&rtp, ",")[0]
 
 " fast .vimrc access
 execute "nnoremap <Leader>htm :read " . g:my_vim_folder . "/template.html<CR>"
+execute "nnoremap <Leader>c :read " . g:my_vim_folder . "/template.cpp<CR>"
 nnoremap <LocalLeader>v :e $MYVIMRC<CR>
 nnoremap <LocalLeader>o :source $MYVIMRC<CR>
 
@@ -371,8 +374,13 @@ function! GetLoggingStatement(token, label)
 		endif
 
 	elseif syntax_type == "cpp"
-		let line_prefix = "LOGGER << "
-		let line_suffix = ";"
+		if g:is_logger
+			let line_prefix = "LOGGER << "
+			let line_suffix = ";"
+		else
+			let line_prefix = "std::cout << "
+			let line_suffix = " << std::endl;"
+		endif
 
 		if strlen(token) > 0 && strlen(label) <= 0
 			let label = "\"" . token . " = \""
@@ -387,24 +395,6 @@ function! GetLoggingStatement(token, label)
 		else
 			let joiner = ""
 		endif
-
-		" elseif syntax_type == "cpp"
-		" 	let line_prefix = "std::cout << "
-		" 	let line_suffix = " << std::endl;"
-
-		" 	if strlen(token) > 0 && strlen(label) <= 0
-		" 		let label = "\"" . token . " = \""
-		" 	elseif  strlen(token) <= 0 && strlen(label) > 0
-		" 		let label = "\"" . label . "\""
-		" 	else
-		" 		let label = label
-		" 	endif
-
-		" 	if strlen(token) > 0 && strlen(label) > 0
-		" 		let joiner = " << "
-		" 	else
-		" 		let joiner = ""
-		" 	endif
 
 	elseif syntax_type == "java"
 		let line_prefix = "System.out.println("
